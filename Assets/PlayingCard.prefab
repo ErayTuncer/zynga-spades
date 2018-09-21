@@ -232,6 +232,7 @@ MonoBehaviour:
   Rank: {fileID: 114443844624086100}
   CornerSuit: {fileID: 114036005364702082}
   CenterSuit: {fileID: 114192827720906444}
+  placedPosition: {x: 0, y: 0, z: 0}
 --- !u!222 &222070030164854332
 CanvasRenderer:
   m_ObjectHideFlags: 1
