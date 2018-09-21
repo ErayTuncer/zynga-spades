@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class PlayingCardHolder : MonoBehaviour {
 
-    public int elementAmount = 11;
-
-    public ParabolicFormula formula;
-    public PlayingCard playingCardPrefab;
+    public int EmptySlotAmount = 11;
     public float cardSpacing;
+    public ParabolicFormula formula;
 
     private List<HolderElement> cardList = new List<HolderElement>();
 
-    private void Awake() {
-        StartCoroutine(DrawElements());
-    }
-
-    private IEnumerator DrawElements() {
-        for (int i = 0; i < elementAmount; i++) {
-            yield return new WaitForSeconds(0.1f);
-            IncreaseElement();
+    public void AddCard(PlayingCard newCard) {
+        if (EmptySlotAmount < 0) {
+            return;
         }
-    }
 
-    public void IncreaseElement() {
-        PlayingCard.Suits[] values = (PlayingCard.Suits[])System.Enum.GetValues(typeof(PlayingCard.Suits));
-        PlayingCard card = Instantiate(playingCardPrefab, transform);
-        card.SetCard(values[Random.Range(0, values.Length)], Random.Range(1, 14));
+        newCard.transform.SetParent(transform);
+        newCard.transform.rotation = new Quaternion();
 
-        HolderElement holderElement = card.gameObject.AddComponent<HolderElement>();
+        HolderElement holderElement = newCard.gameObject.AddComponent<HolderElement>();
         holderElement.OnDragEnd.AddListener(() => { RepositionCards(); });
         holderElement.OnDragging.AddListener(() => { CheckSwap(holderElement); });
         cardList.Add(holderElement);
