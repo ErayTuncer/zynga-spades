@@ -43,4 +43,8 @@ public class PlayingCard : MonoBehaviour {
         return rank;
     }
 
+    public int GetPoint() {
+        return (rank > 10) ? 10 : rank;
+    }
+
 }
