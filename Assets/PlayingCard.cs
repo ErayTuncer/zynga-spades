@@ -35,4 +35,12 @@ public class PlayingCard : MonoBehaviour {
         cardUI.SetUI(suit, rank);
     }
 
+    public Suits GetSuit() {
+        return suit;
+    }
+
+    public int GetRank() {
+        return rank;
+    }
+
 }

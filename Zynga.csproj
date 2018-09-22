@@ -304,10 +304,12 @@
   <ItemGroup>
     <Compile Include="Assets\Deck.cs" />
     <Compile Include="Assets\HolderElement.cs" />
+    <Compile Include="Assets\IncrementalStrategy.cs" />
     <Compile Include="Assets\ParabolicFormula.cs" />
     <Compile Include="Assets\PlayingCard.cs" />
     <Compile Include="Assets\PlayingCardHolder.cs" />
     <Compile Include="Assets\PlayingCardUI.cs" />
+    <Compile Include="Assets\SortingStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
