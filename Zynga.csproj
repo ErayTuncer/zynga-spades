@@ -309,6 +309,7 @@
     <Compile Include="Assets\PlayingCard.cs" />
     <Compile Include="Assets\PlayingCardHolder.cs" />
     <Compile Include="Assets\PlayingCardUI.cs" />
+    <Compile Include="Assets\SameRankStrategy.cs" />
     <Compile Include="Assets\SortingStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

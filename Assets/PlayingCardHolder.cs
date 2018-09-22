@@ -53,6 +53,10 @@ public class PlayingCardHolder : MonoBehaviour {
         SortCards(new IncrementalStrategy());
     }
 
+    public void OnClickSameRank() {
+        SortCards(new SameRankStrategy());
+    }
+
     public void SortCards(ISortingStrategy sortStrategy) { 
         List<PlayingCard> playingCardList = new List<PlayingCard>();
         cardList.ForEach(element => playingCardList.Add(element.GetComponent<PlayingCard>()));
