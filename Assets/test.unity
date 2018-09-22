@@ -389,6 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmptySlotAmount: 11
   cardSpacing: 50
+  rotationMultiplier: -0.1
   formula:
     a: -0.001
     b: 0
