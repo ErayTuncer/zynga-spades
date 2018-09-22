@@ -6,6 +6,7 @@ public class PlayingCardHolder : MonoBehaviour {
 
     public int EmptySlotAmount = 11;
     public float cardSpacing;
+    public float rotationMultiplier = 5.0f;
     public ParabolicFormula formula;
 
     private List<HolderElement> cardList = new List<HolderElement>();
@@ -19,8 +20,9 @@ public class PlayingCardHolder : MonoBehaviour {
         newCard.transform.rotation = new Quaternion();
 
         HolderElement holderElement = newCard.gameObject.AddComponent<HolderElement>();
-        holderElement.OnDragEnd.AddListener(() => { RepositionCards(); });
-        holderElement.OnDragging.AddListener(() => { CheckSwap(holderElement); });
+        holderElement.OnDragBegin.AddListener(() => holderElement.GetComponent<RectTransform>().rotation = new Quaternion());
+        holderElement.OnDragging.AddListener(() => CheckSwap(holderElement));
+        holderElement.OnDragEnd.AddListener(() => RepositionCards());
         cardList.Add(holderElement);
         RepositionCards();
     }
@@ -52,6 +54,7 @@ public class PlayingCardHolder : MonoBehaviour {
         int indexElement2 = cardList.IndexOf(element2);
         cardList[indexElement1] = element2;
         cardList[indexElement2] = element1;
+
         cardList[indexElement1].transform.SetSiblingIndex(indexElement1);
         cardList[indexElement2].transform.SetSiblingIndex(indexElement2);
 
@@ -68,16 +71,24 @@ public class PlayingCardHolder : MonoBehaviour {
         Vector2 initialPosition = element.GetComponent<RectTransform>().anchoredPosition;
         while (delta < 1.0f) {
             yield return new WaitForSecondsRealtime(0.016f); // 60 frames per second
-            element.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(initialPosition, destination, delta);
+            Vector2 nextPosition = Vector2.Lerp(initialPosition, destination, delta);
+            element.GetComponent<RectTransform>().anchoredPosition = nextPosition;
+            element.GetComponent<RectTransform>().rotation = Quaternion.Euler(0.0f, 0.0f, nextPosition.x * rotationMultiplier);
             delta += 0.1f;
         }
         element.GetComponent<RectTransform>().anchoredPosition = destination;
+        element.GetComponent<RectTransform>().rotation = Quaternion.Euler(0.0f, 0.0f, destination.x * rotationMultiplier);
+    }
+
+    private void OnValidate() {
+        RepositionCards();
     }
 
     public void RepositionCards() {
         for (int i = 0; i < cardList.Count; i++) {
             if (!cardList[i].IsDragged()) {
                 cardList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(GetXByIndex(i), formula.GetY(GetXByIndex(i)));
+                cardList[i].GetComponent<RectTransform>().rotation = Quaternion.Euler(0.0f, 0.0f, GetXByIndex(i) * rotationMultiplier);
                 cardList[i].transform.SetSiblingIndex(i);
             }
         }

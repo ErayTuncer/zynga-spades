@@ -4,13 +4,15 @@ using UnityEngine.EventSystems;
 
 public class HolderElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
 
-    public UnityEvent OnDragging = new UnityEvent();
-    public UnityEvent OnDragEnd = new UnityEvent();
+    public UnityEvent OnDragBegin = new UnityEvent();
+    public UnityEvent OnDragging  = new UnityEvent();
+    public UnityEvent OnDragEnd   = new UnityEvent();
 
     private bool isDragged = false;
 
     public void OnPointerDown(PointerEventData eventData) {
         isDragged = true;
+        OnDragBegin.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData) {
