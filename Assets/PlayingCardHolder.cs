@@ -95,6 +95,7 @@ public class PlayingCardHolder : MonoBehaviour {
         while (delta < 1.0f) {
             yield return new WaitForSecondsRealtime(0.016f); // 60 frames per second
             Vector2 nextPosition = Vector2.Lerp(initialPosition, destination, delta);
+            nextPosition.y = formula.GetY(nextPosition.x);
             element.GetComponent<RectTransform>().anchoredPosition = nextPosition;
             element.GetComponent<RectTransform>().rotation = Quaternion.Euler(0.0f, 0.0f, nextPosition.x * rotationMultiplier);
             delta += 0.1f;
