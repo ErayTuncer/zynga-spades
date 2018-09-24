@@ -16,8 +16,6 @@ public class PlayingCard : MonoBehaviour {
 
     private void Awake() {
         cardUI = GetComponent<PlayingCardUI>();
-
-        SetCard(Suits.HEARTS, 1); // TODO: remove!!!
     }
 
     public void SetCard(Suits suit, int rank) {

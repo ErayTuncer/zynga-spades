@@ -65,11 +65,6 @@ public class PlayingCardHolder : MonoBehaviour {
         cardList.Clear();
         sortedList.ForEach(element => cardList.Add(element.gameObject));
         RepositionCards();
-
-
-        // TODO: remove below
-        Debug.LogError("ORDERED:");
-        sortedList.ForEach(element => Debug.LogError("Suit: " + element.GetSuit() + "   Rank: " + element.GetRank()));
     }
 
     private void SwapElements(GameObject element1, GameObject element2) {
